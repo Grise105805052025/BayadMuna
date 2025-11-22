@@ -9,8 +9,10 @@ Thumbs.db
 # Android-specific files and directories
 /local.properties
 /.gradle
+/app/build
 /build
 /captures
+.idea/
 .externalNativeBuild
 .cxx
 *.iml
@@ -63,8 +65,8 @@ Thumbs.db
 !gradle-wrapper.jar
 
 # Keystore files (if not managed by version control)
-# app/debug.keystore
-# app/release.keystore
+app/debug.keystore
+app/release.keystore
 
 # Local Android SDK settings
-# .android/
+.android/
