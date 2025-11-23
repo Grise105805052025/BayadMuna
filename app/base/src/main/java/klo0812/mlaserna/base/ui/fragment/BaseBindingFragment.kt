@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import klo0812.mlaserna.base.BR
-import klo0812.mlaserna.base.ui.models.BaseViewModel
+import klo0812.mlaserna.base.ui.models.BaseFragmentViewModel
 
 /**
  * Creates a sample of a re-usable fragment that showcases a simple data binding concept.
@@ -23,7 +23,10 @@ import klo0812.mlaserna.base.ui.models.BaseViewModel
  * @version 1.0
  * @since 2025-11-22
  */
-abstract class BaseBindingFragment<A : BaseViewModel<*, *>, B : ViewModelProvider.Factory, C : ViewDataBinding> : Fragment() {
+abstract class BaseBindingFragment<
+        A : BaseFragmentViewModel<*, *>,
+        B : ViewModelProvider.Factory,
+        C : ViewDataBinding> : Fragment() {
 
     protected lateinit var viewModel: A
     protected lateinit var viewDataBinding: C
@@ -68,8 +71,8 @@ abstract class BaseBindingFragment<A : BaseViewModel<*, *>, B : ViewModelProvide
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initiateBindings()
-        initiateObservers()
         initiateViews()
+        initiateObservers()
     }
 
     /**
@@ -80,16 +83,16 @@ abstract class BaseBindingFragment<A : BaseViewModel<*, *>, B : ViewModelProvide
     }
 
     /**
-     * Initializes the observers (if any) for this fragment.
+     * Initializes the views for this fragment.
      */
-    open fun initiateObservers() {
+    open fun initiateViews() {
 
     }
 
     /**
-     * Initializes the views for this fragment.
+     * Initializes the observers (if any) for this fragment.
      */
-    open fun initiateViews() {
+    open fun initiateObservers() {
 
     }
 

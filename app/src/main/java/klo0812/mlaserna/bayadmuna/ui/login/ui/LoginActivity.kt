@@ -5,17 +5,23 @@ import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import dagger.hilt.android.AndroidEntryPoint
+import klo0812.mlaserna.base.ui.activity.BaseBindingActivity
+import klo0812.mlaserna.base.ui.models.BaseActivityViewModel
+import klo0812.mlaserna.base.ui.models.BaseActivityViewModelFactory
 import klo0812.mlaserna.bayadmuna.R
+import klo0812.mlaserna.bayadmuna.databinding.LoginActivityBinding
 import klo0812.mlaserna.bayadmuna.ui.login.navigation.LoginNavigation
 import klo0812.mlaserna.bayadmuna.utilities.ThemeChanger
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity(), LoginNavigation {
+class LoginActivity : BaseBindingActivity<
+        BaseActivityViewModel,
+        BaseActivityViewModelFactory,
+        LoginActivityBinding>(), LoginNavigation {
 
     enum class Fragments {
         LOGIN,
@@ -25,14 +31,24 @@ class LoginActivity : AppCompatActivity(), LoginNavigation {
     private lateinit var mFragmentContainer: FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        ThemeChanger.randomizeTheme(this)
         super.onCreate(savedInstanceState)
-        ThemeChanger.Companion.randomizeTheme(this)
-        setContentView(R.layout.login_activity)
-        initViews()
-        navigate(Fragments.LOGIN)
     }
 
-    private fun initViews() {
+    override fun initViewModelFactory(): BaseActivityViewModelFactory {
+        return BaseActivityViewModelFactory(progress = false, navigating = false)
+    }
+
+    override fun viewModelClass(): Class<BaseActivityViewModel> {
+        return BaseActivityViewModel::class.java
+    }
+
+    override fun getFragmentLayout(): Int {
+        return R.layout.login_activity
+    }
+
+    override fun initiateViews() {
+        super.initiateViews()
         mFragmentContainer = findViewById(R.id.fragment_container)
         ViewCompat.setOnApplyWindowInsetsListener(
             mFragmentContainer
@@ -41,9 +57,11 @@ class LoginActivity : AppCompatActivity(), LoginNavigation {
             v!!.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             WindowInsetsCompat.CONSUMED
         }
+        navigate(Fragments.LOGIN)
     }
 
     override fun navigate(fragment: Fragments) {
+        viewModel.navigating.value = true
         val nextFragment = when (fragment) {
             Fragments.LOGIN -> {
                 LoginFragment()

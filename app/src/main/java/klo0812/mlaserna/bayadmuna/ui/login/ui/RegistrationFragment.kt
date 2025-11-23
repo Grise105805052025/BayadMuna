@@ -1,11 +1,10 @@
 package klo0812.mlaserna.bayadmuna.ui.login.ui
 
-import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
+import klo0812.mlaserna.base.ui.models.BaseActivityViewModel
+import klo0812.mlaserna.base.ui.models.BaseActivityViewModelFactory
 import klo0812.mlaserna.bayadmuna.R
 import klo0812.mlaserna.bayadmuna.databinding.FragmentRegistrationBinding
 import klo0812.mlaserna.bayadmuna.ui.base.BMServiceFragment
@@ -26,35 +25,14 @@ class RegistrationFragment : BMServiceFragment<RegistrationViewModel, Registrati
 
     @Inject lateinit var loginRepository: LoginRepository
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
+    lateinit var activityViewModel: BaseActivityViewModel
 
-    override fun initiateObservers() {
-        super.initiateObservers()
-        viewModel.username.observe(viewLifecycleOwner, {
-            Log.d(TAG, "Username changed to $it")
-        })
-        viewModel.password.observe(viewLifecycleOwner, {
-            Log.d(TAG, "Password changed to $it")
-        })
-        viewModel.cpassword.observe(viewLifecycleOwner, {
-            Log.d(TAG, "Confirm password changed to $it")
-        })
-    }
-
-    override fun initiateViews() {
-        super.initiateViews()
-        viewDataBinding.mRegister.setOnClickListener {
-            viewModel.register()
-        }
-        viewDataBinding.mBack.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
+    override fun initViewModels() {
+        super.initViewModels()
+        activityViewModel = ViewModelProvider(
+            requireActivity(),
+            BaseActivityViewModelFactory(progress = false, navigating = false)
+        )[BaseActivityViewModel::class.java]
     }
 
     override fun initViewModelFactory(): RegistrationViewModelFactory {
@@ -73,6 +51,30 @@ class RegistrationFragment : BMServiceFragment<RegistrationViewModel, Registrati
 
     override fun getFragmentLayout(): Int {
         return R.layout.fragment_registration
+    }
+
+    override fun initiateViews() {
+        super.initiateViews()
+        activityViewModel.navigating.value = false
+        viewDataBinding.mRegister.setOnClickListener {
+            viewModel.register()
+        }
+        viewDataBinding.mBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+    }
+
+    override fun initiateObservers() {
+        super.initiateObservers()
+        viewModel.username.observe(viewLifecycleOwner, {
+            Log.d(TAG, "Username changed to $it")
+        })
+        viewModel.password.observe(viewLifecycleOwner, {
+            Log.d(TAG, "Password changed to $it")
+        })
+        viewModel.cpassword.observe(viewLifecycleOwner, {
+            Log.d(TAG, "Confirm password changed to $it")
+        })
     }
 
 }

@@ -1,7 +1,7 @@
 package klo0812.mlaserna.bayadmuna.ui.login.models
 
 import androidx.lifecycle.MutableLiveData
-import klo0812.mlaserna.base.ui.models.BaseViewModel
+import klo0812.mlaserna.base.ui.models.BaseFragmentViewModel
 import klo0812.mlaserna.bayadmuna.database.AppDataBase
 import klo0812.mlaserna.bayadmuna.ui.login.database.LoginRepository
 import klo0812.mlaserna.bayadmuna.ui.login.services.LoginService
@@ -12,7 +12,7 @@ class RegistrationViewModel(
     cpassword: String,
     service: LoginService,
     repository: LoginRepository
-) : BaseViewModel<LoginService, AppDataBase>(
+) : BaseFragmentViewModel<LoginService, AppDataBase>(
     service,
     repository
 ) {
@@ -26,11 +26,12 @@ class RegistrationViewModel(
     val password: MutableLiveData<String> = MutableLiveData(password)
     val cpassword: MutableLiveData<String> = MutableLiveData(cpassword)
 
-    fun register() {
+    fun register(): Boolean {
         if (validatePassword()) {
             service?.register(username.value!!, password.value!!)
+            return true
         } else {
-
+            return false
         }
     }
 

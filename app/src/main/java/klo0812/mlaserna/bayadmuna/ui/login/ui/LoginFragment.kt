@@ -1,7 +1,10 @@
 package klo0812.mlaserna.bayadmuna.ui.login.ui
 
 import android.util.Log
+import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
+import klo0812.mlaserna.base.ui.models.BaseActivityViewModel
+import klo0812.mlaserna.base.ui.models.BaseActivityViewModelFactory
 import klo0812.mlaserna.bayadmuna.R
 import klo0812.mlaserna.bayadmuna.databinding.FragmentLoginBinding
 import klo0812.mlaserna.bayadmuna.ui.base.BMServiceFragment
@@ -22,14 +25,14 @@ class LoginFragment : BMServiceFragment<LoginViewModel, LoginViewModelFactory, F
 
     @Inject lateinit var loginRepository: LoginRepository
 
-    override fun initiateObservers() {
-        super.initiateObservers()
-        viewModel.username.observe(viewLifecycleOwner, {
-            Log.d(TAG, "Username changed to $it")
-        })
-        viewModel.password.observe(viewLifecycleOwner, {
-            Log.d(TAG, "Password changed to $it")
-        })
+    lateinit var activityViewModel: BaseActivityViewModel
+
+    override fun initViewModels() {
+        super.initViewModels()
+        activityViewModel = ViewModelProvider(
+            requireActivity(),
+            BaseActivityViewModelFactory(progress = false, navigating = false)
+        )[BaseActivityViewModel::class.java]
     }
 
     override fun initViewModelFactory(): LoginViewModelFactory {
@@ -51,9 +54,20 @@ class LoginFragment : BMServiceFragment<LoginViewModel, LoginViewModelFactory, F
 
     override fun initiateViews() {
         super.initiateViews()
+        activityViewModel.navigating.value = false
         viewDataBinding.mRegister.setOnClickListener {
             mainNavigation.navigate(LoginActivity.Fragments.REGISTER)
         }
+    }
+
+    override fun initiateObservers() {
+        super.initiateObservers()
+        viewModel.username.observe(viewLifecycleOwner, {
+            Log.d(TAG, "Username changed to $it")
+        })
+        viewModel.password.observe(viewLifecycleOwner, {
+            Log.d(TAG, "Password changed to $it")
+        })
     }
 
 }

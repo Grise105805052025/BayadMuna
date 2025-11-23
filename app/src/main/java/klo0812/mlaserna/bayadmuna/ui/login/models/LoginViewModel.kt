@@ -1,7 +1,7 @@
 package klo0812.mlaserna.bayadmuna.ui.login.models
 
 import androidx.lifecycle.MutableLiveData
-import klo0812.mlaserna.base.ui.models.BaseViewModel
+import klo0812.mlaserna.base.ui.models.BaseFragmentViewModel
 import klo0812.mlaserna.bayadmuna.database.AppDataBase
 import klo0812.mlaserna.bayadmuna.ui.login.database.LoginRepository
 import klo0812.mlaserna.bayadmuna.ui.login.services.LoginService
@@ -11,7 +11,7 @@ class LoginViewModel(
     password: String,
     service: LoginService,
     repository: LoginRepository
-) : BaseViewModel<LoginService, AppDataBase>(
+) : BaseFragmentViewModel<LoginService, AppDataBase>(
     service,
     repository
 ) {
