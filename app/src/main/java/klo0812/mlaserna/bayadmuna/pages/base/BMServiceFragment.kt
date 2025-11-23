@@ -1,11 +1,13 @@
-package klo0812.mlaserna.bayadmuna.ui.base
+package klo0812.mlaserna.bayadmuna.pages.base
 
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import klo0812.mlaserna.base.ui.fragment.BaseBindingFragment
 import klo0812.mlaserna.base.ui.models.BaseFragmentViewModel
-import klo0812.mlaserna.bayadmuna.ui.login.navigation.LoginNavigation
+import klo0812.mlaserna.bayadmuna.pages.login.navigation.LoginNavigation
 import okhttp3.OkHttpClient
 import javax.inject.Inject
 
@@ -22,5 +24,13 @@ abstract class BMServiceFragment<
 
     @Inject
     lateinit var mainNavigation: LoginNavigation
+
+    fun showSnackBarMessage(message: String?, duration: Int = Snackbar.LENGTH_LONG) {
+        if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED) && message != null) {
+            Snackbar.make(viewDataBinding.root, message, duration).show()
+        } else {
+            // do something
+        }
+    }
 
 }

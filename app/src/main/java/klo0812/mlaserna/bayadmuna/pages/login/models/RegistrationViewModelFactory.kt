@@ -1,15 +1,15 @@
-package klo0812.mlaserna.bayadmuna.ui.login.models
+package klo0812.mlaserna.bayadmuna.pages.login.models
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import klo0812.mlaserna.bayadmuna.ui.login.database.LoginRepository
-import klo0812.mlaserna.bayadmuna.ui.login.services.LoginService
+import klo0812.mlaserna.bayadmuna.pages.login.database.LoginRepository
+import klo0812.mlaserna.bayadmuna.pages.login.services.LoginAndRegistrationService
 
 class RegistrationViewModelFactory(
     val username: String,
     val password: String,
     val cpassword: String,
-    val service: LoginService,
+    val service: LoginAndRegistrationService,
     val repository: LoginRepository
 ) : ViewModelProvider.Factory {
 

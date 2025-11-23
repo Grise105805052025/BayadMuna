@@ -1,5 +1,5 @@
 
-package klo0812.mlaserna.bayadmuna.ui.login.models
+package klo0812.mlaserna.bayadmuna.pages.login.models
 
 // Still has issues with unit test not sure why
 //@ExtendWith(InstantTaskExecutorExtension::class, MockKExtension::class)

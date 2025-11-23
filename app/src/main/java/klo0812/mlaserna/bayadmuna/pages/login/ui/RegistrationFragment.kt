@@ -1,17 +1,20 @@
-package klo0812.mlaserna.bayadmuna.ui.login.ui
+package klo0812.mlaserna.bayadmuna.pages.login.ui
 
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import klo0812.mlaserna.base.ui.models.BaseActivityViewModel
 import klo0812.mlaserna.base.ui.models.BaseActivityViewModelFactory
 import klo0812.mlaserna.bayadmuna.R
 import klo0812.mlaserna.bayadmuna.databinding.FragmentRegistrationBinding
-import klo0812.mlaserna.bayadmuna.ui.base.BMServiceFragment
-import klo0812.mlaserna.bayadmuna.ui.login.database.LoginRepository
-import klo0812.mlaserna.bayadmuna.ui.login.models.RegistrationViewModel
-import klo0812.mlaserna.bayadmuna.ui.login.models.RegistrationViewModelFactory
-import klo0812.mlaserna.bayadmuna.ui.login.services.LoginService
+import klo0812.mlaserna.bayadmuna.pages.base.BMServiceFragment
+import klo0812.mlaserna.bayadmuna.pages.login.database.LoginRepository
+import klo0812.mlaserna.bayadmuna.pages.login.models.RegistrationViewModel
+import klo0812.mlaserna.bayadmuna.pages.login.models.RegistrationViewModelFactory
+import klo0812.mlaserna.bayadmuna.pages.login.services.LoginAndRegistrationService
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -21,7 +24,7 @@ class RegistrationFragment : BMServiceFragment<RegistrationViewModel, Registrati
         val TAG: String? = RegistrationFragment::class.simpleName
     }
 
-    @Inject lateinit var loginService: LoginService
+    @Inject lateinit var loginAndRegistrationService: LoginAndRegistrationService
 
     @Inject lateinit var loginRepository: LoginRepository
 
@@ -40,7 +43,7 @@ class RegistrationFragment : BMServiceFragment<RegistrationViewModel, Registrati
             username = "",
             password = "",
             cpassword = "",
-            service = loginService,
+            service = loginAndRegistrationService,
             repository = loginRepository
         )
     }
@@ -56,11 +59,34 @@ class RegistrationFragment : BMServiceFragment<RegistrationViewModel, Registrati
     override fun initiateViews() {
         super.initiateViews()
         activityViewModel.navigating.value = false
-        viewDataBinding.mRegister.setOnClickListener {
-            viewModel.register()
-        }
+        setupRegister()
         viewDataBinding.mBack.setOnClickListener {
             requireActivity().onBackPressed()
+        }
+    }
+
+    fun setupRegister() {
+        viewDataBinding.mRegister.setOnClickListener {
+            if (activityViewModel.progress.value != true) {
+                activityViewModel.progress.value = true
+                lifecycleScope.launch {
+                    val result = viewModel.register( { task ->
+                        if (task.isSuccessful) {
+                            requireActivity().onBackPressed()
+                            showSnackBarMessage(getString(R.string.message_registration_success, viewModel.username.value))
+                        } else {
+                            showSnackBarMessage(task.exception?.message)
+                        }
+                        activityViewModel.progress.value = false
+                    })
+                    if (!result) {
+                        delay(200)
+                        //TODO: Update fields to show incompleteness
+                        showSnackBarMessage(getString(R.string.dscp_password_requirements))
+                        activityViewModel.progress.value = false
+                    }
+                }
+            }
         }
     }
 
@@ -68,12 +94,15 @@ class RegistrationFragment : BMServiceFragment<RegistrationViewModel, Registrati
         super.initiateObservers()
         viewModel.username.observe(viewLifecycleOwner, {
             Log.d(TAG, "Username changed to $it")
+            viewDataBinding.mRegister.isEnabled = viewModel.allowRegister()
         })
         viewModel.password.observe(viewLifecycleOwner, {
             Log.d(TAG, "Password changed to $it")
+            viewDataBinding.mRegister.isEnabled = viewModel.allowRegister()
         })
         viewModel.cpassword.observe(viewLifecycleOwner, {
             Log.d(TAG, "Confirm password changed to $it")
+            viewDataBinding.mRegister.isEnabled = viewModel.allowRegister()
         })
     }
 

@@ -1,4 +1,4 @@
-package klo0812.mlaserna.bayadmuna.ui.launcher
+package klo0812.mlaserna.bayadmuna.pages.launcher
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import klo0812.mlaserna.bayadmuna.R
-import klo0812.mlaserna.bayadmuna.ui.login.ui.LoginActivity
+import klo0812.mlaserna.bayadmuna.pages.login.ui.LoginActivity
 import klo0812.mlaserna.bayadmuna.utilities.press
 import klo0812.mlaserna.bayadmuna.utilities.rotate
 import kotlinx.coroutines.delay
@@ -45,11 +45,11 @@ class LauncherActivity : AppCompatActivity() {
                 }
             )
             delay(2000L)
-            navigateToMain()
+            navigateToLogin()
         }
     }
 
-    fun navigateToMain() {
+    fun navigateToLogin() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()

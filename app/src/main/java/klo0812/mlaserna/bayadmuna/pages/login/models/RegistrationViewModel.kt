@@ -1,18 +1,20 @@
-package klo0812.mlaserna.bayadmuna.ui.login.models
+package klo0812.mlaserna.bayadmuna.pages.login.models
 
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.AuthResult
 import klo0812.mlaserna.base.ui.models.BaseFragmentViewModel
 import klo0812.mlaserna.bayadmuna.database.AppDataBase
-import klo0812.mlaserna.bayadmuna.ui.login.database.LoginRepository
-import klo0812.mlaserna.bayadmuna.ui.login.services.LoginService
+import klo0812.mlaserna.bayadmuna.pages.login.database.LoginRepository
+import klo0812.mlaserna.bayadmuna.pages.login.services.LoginAndRegistrationService
 
 class RegistrationViewModel(
     username: String,
     password: String,
     cpassword: String,
-    service: LoginService,
+    service: LoginAndRegistrationService,
     repository: LoginRepository
-) : BaseFragmentViewModel<LoginService, AppDataBase>(
+) : BaseFragmentViewModel<LoginAndRegistrationService, AppDataBase>(
     service,
     repository
 ) {
@@ -26,16 +28,25 @@ class RegistrationViewModel(
     val password: MutableLiveData<String> = MutableLiveData(password)
     val cpassword: MutableLiveData<String> = MutableLiveData(cpassword)
 
-    fun register(): Boolean {
-        if (validatePassword()) {
-            service?.register(username.value!!, password.value!!)
+    fun allowRegister(): Boolean {
+        return validateUserName() && password.value?.isEmpty() != true && cpassword.value?.isEmpty() != true
+    }
+
+    fun register(listener: OnCompleteListener<AuthResult>): Boolean {
+        if (validateUserName() && validatePassword()) {
+            service?.register(username.value!!, password.value!!, listener)
             return true
         } else {
             return false
         }
     }
 
+    private fun validateUserName() : Boolean {
+        return username.value?.isEmpty() != true
+    }
+
     private fun validatePassword() : Boolean {
+        //TODO: Make this more elegant
         return if (password.value?.isEmpty() == true) {
             false
         } else if (password.value != cpassword.value) {

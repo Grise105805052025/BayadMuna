@@ -6,11 +6,19 @@
     <string name="action_register">Register</string>
     <string name="action_register_here">Register here</string>
 
-    <string name="dscp_password_requirements">Password should have at least 8 characters, one uppercase letter, one digit, and one special character</string>
+    <string name="dscp_password_requirements">Password should have at least 8 characters, one uppercase letter, one digit, and one special character.</string>
+
+    <string name="error_generic">Something went wrong. Please try again."</string>
+    <string name="error_login_failed">Login failed."</string>
+    <string name="error_registration_failed">Registration failed."</string>
 
     <string name="field_password">Password</string>
     <string name="field_password_confirm">Confirm Password</string>
-    <string name="field_username">Username</string>
+    <string name="field_username">Username (Email)</string>
+
+    <string name="message_exit">Are you sure you want to exit.</string>
+    <string name="message_logout">Do you want to logout?</string>
+    <string name="message_registration_success">You have successfully registered using %1$s.</string>
 
     <string name="response_no">No</string>
     <string name="response_yes">Yes</string>

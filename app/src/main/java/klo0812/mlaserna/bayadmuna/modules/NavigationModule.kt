@@ -5,7 +5,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
-import klo0812.mlaserna.bayadmuna.ui.login.navigation.LoginNavigation
+import klo0812.mlaserna.bayadmuna.pages.login.navigation.LoginNavigation
+import klo0812.mlaserna.bayadmuna.pages.main.navigation.MainNavigation
 
 /**
  * Module used to provide network related injections.
@@ -19,8 +20,14 @@ import klo0812.mlaserna.bayadmuna.ui.login.navigation.LoginNavigation
 class NavigationModule {
 
     @Provides
-    fun provideMainNavigation(activity: Activity): LoginNavigation {
+    fun provideLoginNavigation(activity: Activity): LoginNavigation {
         return activity as LoginNavigation
     }
+
+    @Provides
+    fun provideMainNavigation(activity: Activity): MainNavigation {
+        return activity as MainNavigation
+    }
+
 
 }

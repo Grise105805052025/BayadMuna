@@ -9,10 +9,16 @@ import klo0812.mlaserna.bayadmuna.database.entities.UserEntity
 @Dao
 interface UserDao {
 
+    @Query("SELECT * FROM UserEntity")
+    fun get() : UserEntity
+
     @Query("SELECT * FROM UserEntity WHERE userId = :userId")
     fun get(userId: String) : UserEntity
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(vararg weathers: UserEntity)
+    fun insertAll(vararg users: UserEntity)
+
+    @Query("DELETE FROM UserEntity")
+    fun deleteAll()
 
 }

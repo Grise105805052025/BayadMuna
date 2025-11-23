@@ -4,7 +4,7 @@
     <data>
         <variable
             name="fragmentViewModel"
-            type="klo0812.mlaserna.bayadmuna.ui.login.models.LoginViewModel"/>
+            type="klo0812.mlaserna.bayadmuna.pages.login.models.LoginViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

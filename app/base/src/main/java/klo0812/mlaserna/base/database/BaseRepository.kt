@@ -10,5 +10,5 @@ import androidx.room.RoomDatabase
  * @since 2025-11-23
  */
 open class BaseRepository<T : RoomDatabase>(
-    database: T,
+    open val database: T,
 )
