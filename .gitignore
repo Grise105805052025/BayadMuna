@@ -70,3 +70,4 @@ app/release.keystore
 
 # Local Android SDK settings
 .android/
+app/google-services.json

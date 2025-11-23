@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id 'com.android.library'
     id 'kotlin-kapt'
 }
 
@@ -11,7 +11,6 @@ android {
     }
 
     defaultConfig {
-        applicationId "klo0812.mlaserna.base"
         minSdk 27
         targetSdk 36
         versionCode 1
@@ -50,13 +49,12 @@ dependencies {
     implementation libs.androidx.lifecycle.livedata.ktx
     implementation libs.androidx.lifecycle.viewmodel.ktx
     implementation libs.androidx.fragment.ktx
-}
 
-// For testing
-dependencies {
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.junit)
-    testImplementation(libs.junit)
-    testImplementation(libs.junit.jupiter)
-    testImplementation(libs.mockito)
+    // OkHttp
+    implementation libs.okhttp
+    implementation libs.logging.interceptor
+
+    // Room
+    implementation libs.androidx.room.ktx
+    implementation libs.androidx.room.runtime
 }

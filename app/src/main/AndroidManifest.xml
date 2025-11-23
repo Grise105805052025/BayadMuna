@@ -13,9 +13,9 @@
         android:theme="@style/Theme.BayadMuna">
 
         <activity
-            android:name=".activities.LauncherActivity"
+            android:name=".ui.launcher.LauncherActivity"
             android:exported="true"
-            android:theme="@style/Theme.BayadMuna.NoActionBar">
+            android:theme="@style/Theme.BayadMuna">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -23,9 +23,9 @@
         </activity>
 
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".ui.login.ui.LoginActivity"
             android:exported="true"
-            android:theme="@style/Theme.BayadMuna.NoActionBar"/>
+            android:theme="@style/Theme.BayadMuna"/>
 
     </application>
 

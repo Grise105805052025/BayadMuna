@@ -16,16 +16,17 @@ import klo0812.mlaserna.base.ui.models.BaseViewModel
  * Creates a sample of a re-usable fragment that showcases a simple data binding concept.
  *
  * @param A type parameter to represent the ViewModel class used in this fragment.
- * @param B type parameter to represent the DataBinding class used in this fragment.
+ * @param B type parameter to represent the ViewModelFactory class used to create the ViewModel in this fragment.
+ * @param C type parameter to represent the DataBinding class used in this fragment.
  *
  * @author Roy M
  * @version 1.0
  * @since 2025-11-22
  */
-abstract class BaseBindingFragment<A : BaseViewModel, B : ViewModelProvider.Factory, C : ViewDataBinding> : Fragment() {
+abstract class BaseBindingFragment<A : BaseViewModel<*, *>, B : ViewModelProvider.Factory, C : ViewDataBinding> : Fragment() {
 
-    private lateinit var viewModel: A
-    private lateinit var viewDataBinding: C
+    protected lateinit var viewModel: A
+    protected lateinit var viewDataBinding: C
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +69,7 @@ abstract class BaseBindingFragment<A : BaseViewModel, B : ViewModelProvider.Fact
         super.onViewCreated(view, savedInstanceState)
         initiateBindings()
         initiateObservers()
+        initiateViews()
     }
 
     /**
@@ -81,6 +83,13 @@ abstract class BaseBindingFragment<A : BaseViewModel, B : ViewModelProvider.Fact
      * Initializes the observers (if any) for this fragment.
      */
     open fun initiateObservers() {
+
+    }
+
+    /**
+     * Initializes the views for this fragment.
+     */
+    open fun initiateViews() {
 
     }
 

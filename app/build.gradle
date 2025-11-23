@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.google.gms.google.services)
     alias(libs.plugins.hilt.android)
     id 'kotlin-kapt'
 }
@@ -42,6 +43,13 @@ android {
         dataBinding true
     }
 
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
+        unitTests.includeAndroidResources = false
+    }
+
     packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -52,6 +60,8 @@ android {
 }
 
 dependencies {
+    implementation project(":app:base")
+
     implementation libs.androidx.core.ktx
     implementation libs.androidx.appcompat
     implementation libs.material
@@ -75,16 +85,17 @@ dependencies {
     implementation libs.logging.interceptor
 
     // Room
-    implementation libs.androidx.room.common.jvm
-    implementation libs.androidx.room.runtime.android
+    implementation libs.androidx.room.ktx
+    implementation libs.androidx.room.runtime
     ksp libs.androidx.room.compiler
-}
 
-// For testing
-dependencies {
-    androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
-    testImplementation(libs.junit)
-    testImplementation(libs.junit.jupiter)
-    testImplementation(libs.mockito)
+    androidTestImplementation(libs.androidx.espresso.core)
+
+    testImplementation(libs.androidx.arch.core)
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockk)
+
+    testRuntimeOnly(libs.junit.jupiter.engine)
 }

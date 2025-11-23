@@ -1,0 +1,25 @@
+<resources>
+    <style name="Style"/>
+
+    <style name="Style.BayadMuna"/>
+
+    <style name="Style.BayadMuna.Button"/>
+
+    <style name="Style.BayadMuna.Button.TextOnly">
+        <item name="android:backgroundTint">@color/transparent</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Style.BayadMuna.Field">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="Style.BayadMuna.Title">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_title_text_size</item>
+    </style>
+
+    <style name="Style.BayadMuna.Dscp">
+        <item name="android:textSize">@dimen/text_dscp_text_size</item>
+    </style>
+</resources>

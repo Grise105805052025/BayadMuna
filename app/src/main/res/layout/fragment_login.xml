@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="fragmentViewModel"
+            type="klo0812.mlaserna.bayadmuna.ui.login.models.LoginViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="@dimen/ui_login_container_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_white_rounded"
+                android:padding="@dimen/ui_login_container_padding"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/Style.BayadMuna.Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_elements_large"
+                    android:text="@string/title_login"
+                    android:gravity="start"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_elements_small"
+                    android:hint="@string/field_username">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/Style.BayadMuna.Field"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:text="@={fragmentViewModel.username}">
+
+                    </com.google.android.material.textfield.TextInputEditText>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_elements_small"
+                    android:hint="@string/field_password">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/Style.BayadMuna.Field"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:text="@={fragmentViewModel.password}">
+
+                    </com.google.android.material.textfield.TextInputEditText>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Simple trick to make both fragment_login and fragment_registration be the same size -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_elements_small"
+                    android:visibility="invisible">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/Style.BayadMuna.Field"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword">
+
+                    </com.google.android.material.textfield.TextInputEditText>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    style="@style/Style.BayadMuna.Dscp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_elements_xlarge"
+                    android:gravity="start"
+                    android:visibility="invisible"
+                    android:text="@string/dscp_password_requirements"/>
+                <!-- Simple trick to make both fragment_login and fragment_registration be the same size -->
+
+                <Button
+                    android:id="@+id/mLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_elements_small"
+                    android:text="@string/action_login"/>
+
+                <Button
+                    android:id="@+id/mRegister"
+                    style="@style/Style.BayadMuna.Button.TextOnly"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_elements_medium"
+                    android:text="@string/action_register_here"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

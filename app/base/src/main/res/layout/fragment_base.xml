@@ -2,13 +2,13 @@
 <layout>
 
     <data>
-
         <variable
             name="fragmentViewModel"
             type="androidx.lifecycle.ViewModel"/>
     </data>
 
-    <View xmlns:android="http://schemas.android.com/apk/res/android"
+    <View
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
