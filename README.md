@@ -14,3 +14,4 @@ Primarly showcases the following:
 - [Hilt](https://developer.android.com/training/dependency-injection/hilt-android): To showcase skill in dependency injection.
 - [OkHttp](https://square.github.io/okhttp/): To simulate API requests from a "server".
 - [Mockk](https://mockk.io) and [JUnit5](https://www.baeldung.com/junit-5): (Pending) For unit testing.
+- [Room](https://developer.android.com/training/data-storage/room): To store local data (and to somewhat simulate service calls).
