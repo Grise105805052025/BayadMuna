@@ -7,6 +7,7 @@ import klo0812.mlaserna.base.ui.models.BaseFragmentViewModel
 import klo0812.mlaserna.bayadmuna.database.AppDataBase
 import klo0812.mlaserna.bayadmuna.pages.login.database.LoginRepository
 import klo0812.mlaserna.bayadmuna.pages.login.services.LoginAndRegistrationService
+import klo0812.mlaserna.bayadmuna.utilities.validateString
 
 class LoginViewModel(
     username: String,
@@ -36,11 +37,11 @@ class LoginViewModel(
     }
 
     private fun validateUserName() : Boolean {
-        return username.value?.isEmpty() != true
+        return validateString(username.value)
     }
 
     private fun validatePassword() : Boolean {
-        return password.value?.isEmpty() != true
+        return validateString(password.value)
     }
 
 }

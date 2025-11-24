@@ -114,7 +114,7 @@ class MainActivity : BaseBindingActivity<
             walletViewModel = ViewModelProvider(
                 initViewModelStore(),
                 WalletViewModelFactory(
-                    username = walletData?.userEntity?.email ?: "",
+                    username = firebaseAuth.currentUser?.email ?: "",
                     balance = walletData?.balance ?: 0.0,
                     showBalance = true,
                     service = mainService,

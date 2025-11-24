@@ -11,6 +11,7 @@ import klo0812.mlaserna.bayadmuna.pages.main.models.JSONPlaceHolderResponseModel
 import klo0812.mlaserna.bayadmuna.pages.main.services.MainService
 import klo0812.mlaserna.bayadmuna.utilities.formatMoney
 import klo0812.mlaserna.bayadmuna.utilities.generateRandomId
+import klo0812.mlaserna.bayadmuna.utilities.validateString
 
 open class SendMoneyViewModel(
     target: String,
@@ -31,7 +32,7 @@ open class SendMoneyViewModel(
     val balanceString: MutableLiveData<String> = MutableLiveData(formatMoney(balance))
 
     fun allowSendMoney(): Boolean {
-        return target.value?.isEmpty() != true && amount.value?.isEmpty() != true
+        return validateString(target.value) && validateString(amount.value)
     }
 
     fun validTarget(): Boolean {

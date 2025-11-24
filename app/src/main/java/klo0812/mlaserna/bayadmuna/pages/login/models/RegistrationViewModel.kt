@@ -7,6 +7,7 @@ import klo0812.mlaserna.base.ui.models.BaseFragmentViewModel
 import klo0812.mlaserna.bayadmuna.database.AppDataBase
 import klo0812.mlaserna.bayadmuna.pages.login.database.LoginRepository
 import klo0812.mlaserna.bayadmuna.pages.login.services.LoginAndRegistrationService
+import klo0812.mlaserna.bayadmuna.utilities.validateString
 
 class RegistrationViewModel(
     username: String,
@@ -29,7 +30,7 @@ class RegistrationViewModel(
     val cpassword: MutableLiveData<String> = MutableLiveData(cpassword)
 
     fun allowRegister(): Boolean {
-        return validateUserName() && password.value?.isEmpty() != true && cpassword.value?.isEmpty() != true
+        return validateUserName() && validateString(password.value) && validateString(cpassword.value)
     }
 
     fun register(listener: OnCompleteListener<AuthResult>): Boolean {
@@ -42,12 +43,12 @@ class RegistrationViewModel(
     }
 
     private fun validateUserName() : Boolean {
-        return username.value?.isEmpty() != true
+        return validateString(username.value)
     }
 
     private fun validatePassword() : Boolean {
         //TODO: Make this more elegant
-        return if (password.value?.isEmpty() == true) {
+        return if (validateString(password.value) && validateString(cpassword.value)) {
             false
         } else if (password.value != cpassword.value) {
             false
