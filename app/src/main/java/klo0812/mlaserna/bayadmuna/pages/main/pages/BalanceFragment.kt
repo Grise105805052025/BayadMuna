@@ -1,5 +1,6 @@
 package klo0812.mlaserna.bayadmuna.pages.main.pages
 
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import klo0812.mlaserna.base.ui.models.BaseActivityViewModel
@@ -7,10 +8,13 @@ import klo0812.mlaserna.base.ui.models.BaseActivityViewModelFactory
 import klo0812.mlaserna.bayadmuna.R
 import klo0812.mlaserna.bayadmuna.databinding.FragmentBalanceBinding
 import klo0812.mlaserna.bayadmuna.pages.base.BMServiceFragment
+import klo0812.mlaserna.bayadmuna.pages.login.ui.LoginFragment.Companion.TAG
 import klo0812.mlaserna.bayadmuna.pages.main.database.MainRepository
 import klo0812.mlaserna.bayadmuna.pages.main.models.WalletViewModel
 import klo0812.mlaserna.bayadmuna.pages.main.models.WalletViewModelFactory
+import klo0812.mlaserna.bayadmuna.pages.main.navigation.MainNavigation
 import klo0812.mlaserna.bayadmuna.pages.main.services.MainService
+import klo0812.mlaserna.bayadmuna.utilities.formatMoney
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -21,6 +25,9 @@ class BalanceFragment : BMServiceFragment<WalletViewModel, WalletViewModelFactor
 
     @Inject
     lateinit var mainRepository: MainRepository
+
+    @Inject
+    lateinit var mainNavigation: MainNavigation
 
     lateinit var activityViewModel: BaseActivityViewModel
 
@@ -53,7 +60,9 @@ class BalanceFragment : BMServiceFragment<WalletViewModel, WalletViewModelFactor
     override fun initiateViews() {
         super.initiateViews()
         activityViewModel.navigating.value = false
+        mainNavigation.updateBalance()
         updateTitle()
+        viewModel.checkMoneyVisibility()
     }
 
     private fun updateTitle() {
@@ -62,6 +71,10 @@ class BalanceFragment : BMServiceFragment<WalletViewModel, WalletViewModelFactor
 
     override fun initiateObservers() {
         super.initiateObservers()
+        viewModel.balance.observe(viewLifecycleOwner, {
+            Log.d(TAG, "Balance changed to $it.")
+            viewModel.balanceString.value = formatMoney(it)
+        })
         viewModel.showBalance.observe(viewLifecycleOwner, {
             viewDataBinding.mShowHideAmount.setText(
                 if (!it) R.string.action_amount_show else R.string.action_amount_hide

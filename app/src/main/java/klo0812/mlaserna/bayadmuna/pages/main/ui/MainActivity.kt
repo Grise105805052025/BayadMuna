@@ -22,12 +22,14 @@ import klo0812.mlaserna.bayadmuna.pages.main.models.WalletViewModel
 import klo0812.mlaserna.bayadmuna.pages.main.models.WalletViewModelFactory
 import klo0812.mlaserna.bayadmuna.pages.main.navigation.MainNavigation
 import klo0812.mlaserna.bayadmuna.pages.main.pages.BalanceFragment
+import klo0812.mlaserna.bayadmuna.pages.main.pages.SendMoneyFragment
 import klo0812.mlaserna.bayadmuna.pages.main.services.MainService
 import klo0812.mlaserna.bayadmuna.utilities.FakeDataGenerator
 import klo0812.mlaserna.bayadmuna.utilities.ThemeChanger
 import klo0812.mlaserna.bayadmuna.utilities.press
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -45,8 +47,8 @@ class MainActivity : BaseBindingActivity<
 
     enum class Navigation {
         BALANCE,
-        HISTORY,
-        PAYMENT
+        PAYMENT,
+        HISTORY
     }
 
     @Inject
@@ -118,6 +120,21 @@ class MainActivity : BaseBindingActivity<
                     repository = mainRepository
                 )
             )[WalletViewModel::class]
+            initLoopingBackgroundCalls()
+            viewModel.selectedMenu.postValue(0)
+        }
+    }
+
+    fun initLoopingBackgroundCalls() {
+        lifecycleScope.launch {
+            flow {
+                while (true) {
+                    emit(Unit)
+                    delay(5000)
+                }
+            }.collect {
+                updateBalance() // keep checking balance in the background
+            }
         }
     }
 
@@ -136,11 +153,11 @@ class MainActivity : BaseBindingActivity<
                 }
                 1 -> {
                     press(targetView = viewDataBinding.mMenuI2)
-                    navigate(Navigation.HISTORY)
+                    navigate(Navigation.PAYMENT)
                 }
                 2 -> {
                     press(targetView = viewDataBinding.mMenuI3)
-                    navigate(Navigation.PAYMENT)
+                    navigate(Navigation.HISTORY)
                 }
                 3 -> {
                     press(targetView = viewDataBinding.mMenuI4)
@@ -150,6 +167,17 @@ class MainActivity : BaseBindingActivity<
         })
     }
 
+    override fun updateBalance() {
+        Log.d(TAG, "Updating balance...")
+        lifecycleScope.launch {
+            val balance = withContext(Dispatchers.IO) {
+                // Ideally this is an actual functioning backend service
+                mainRepository.getBalance(mainService.firebaseAuth.currentUser?.uid)
+            }
+            walletViewModel.balance.postValue(balance)
+        }
+    }
+
     override fun navigate(next: Navigation) {
         if (viewModel.navigating.value != true) {
             viewModel.navigating.value = true
@@ -157,10 +185,10 @@ class MainActivity : BaseBindingActivity<
                 Navigation.BALANCE -> {
                     BalanceFragment()
                 }
-                Navigation.HISTORY -> {
-                    null
-                }
                 Navigation.PAYMENT -> {
+                    SendMoneyFragment()
+                }
+                Navigation.HISTORY -> {
                     null
                 }
             }

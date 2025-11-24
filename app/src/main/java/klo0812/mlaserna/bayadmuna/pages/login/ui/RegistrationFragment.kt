@@ -1,6 +1,7 @@
 package klo0812.mlaserna.bayadmuna.pages.login.ui
 
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
@@ -13,6 +14,7 @@ import klo0812.mlaserna.bayadmuna.pages.login.database.LoginRepository
 import klo0812.mlaserna.bayadmuna.pages.login.models.RegistrationViewModel
 import klo0812.mlaserna.bayadmuna.pages.login.models.RegistrationViewModelFactory
 import klo0812.mlaserna.bayadmuna.pages.login.services.LoginAndRegistrationService
+import klo0812.mlaserna.bayadmuna.utilities.hideKeyboard
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -69,6 +71,7 @@ class RegistrationFragment : BMServiceFragment<RegistrationViewModel, Registrati
 
     fun setupRegister() {
         viewDataBinding.mRegister.setOnClickListener {
+            (requireActivity() as AppCompatActivity).hideKeyboard()
             if (activityViewModel.progress.value != true) {
                 activityViewModel.progress.value = true
                 lifecycleScope.launch {
@@ -95,15 +98,15 @@ class RegistrationFragment : BMServiceFragment<RegistrationViewModel, Registrati
     override fun initiateObservers() {
         super.initiateObservers()
         viewModel.username.observe(viewLifecycleOwner, {
-            Log.d(TAG, "Username changed to $it")
+            Log.d(TAG, "Username changed to $it.")
             viewDataBinding.mRegister.isEnabled = viewModel.allowRegister()
         })
         viewModel.password.observe(viewLifecycleOwner, {
-            Log.d(TAG, "Password changed to $it")
+            Log.d(TAG, "Password changed to $it.")
             viewDataBinding.mRegister.isEnabled = viewModel.allowRegister()
         })
         viewModel.cpassword.observe(viewLifecycleOwner, {
-            Log.d(TAG, "Confirm password changed to $it")
+            Log.d(TAG, "Confirm password changed to $it.")
             viewDataBinding.mRegister.isEnabled = viewModel.allowRegister()
         })
     }

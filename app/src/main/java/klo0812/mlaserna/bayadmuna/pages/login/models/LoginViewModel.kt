@@ -23,7 +23,7 @@ class LoginViewModel(
     val password: MutableLiveData<String> = MutableLiveData(password)
 
     fun allowLogin(): Boolean {
-        return validateUserName() && password.value?.isEmpty() != true
+        return validateUserName() && validatePassword()
     }
 
     fun login(listener: OnCompleteListener<AuthResult>): Boolean {

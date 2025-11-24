@@ -8,7 +8,7 @@ import klo0812.mlaserna.bayadmuna.pages.main.services.MainService
 import klo0812.mlaserna.bayadmuna.utilities.formatMoney
 import klo0812.mlaserna.bayadmuna.utilities.hideMoney
 
-class WalletViewModel(
+open class WalletViewModel(
     username: String,
     balance: Double,
     showBalance: Boolean,
@@ -26,12 +26,16 @@ class WalletViewModel(
     val showBalance: MutableLiveData<Boolean> = MutableLiveData(showBalance)
 
     fun toggleBalanceVisibility() {
+        checkMoneyVisibility()
+        showBalance.value = showBalance.value != true
+    }
+
+    //TODO: Still has bugs when navigating back
+    fun checkMoneyVisibility() {
         if (showBalance.value == true) {
             balanceString.value = hideMoney(balance.value ?: 0.0)
-            showBalance.postValue(false)
         } else {
             balanceString.value = formatMoney(balance.value ?: 0.0)
-            showBalance.postValue(true)
         }
     }
 

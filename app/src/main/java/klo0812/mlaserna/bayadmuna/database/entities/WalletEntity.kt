@@ -10,5 +10,5 @@ data class WalletEntity(
     val id: String,
     @Embedded
     val userEntity: UserEntity,
-    val balance: Double,
+    var balance: Double,
 )

@@ -8,26 +8,36 @@
     <string name="action_login">Login</string>
     <string name="action_register">Register</string>
     <string name="action_register_here">Register here</string>
+    <string name="action_send_money">Send Money</string>
 
     <string name="dscp_password_requirements">Password should have at least 8 characters, one uppercase letter, one digit, and one special character.</string>
+    <string name="dscp_available_amount">Available Amount</string>
 
     <string name="error_generic">Something went wrong. Please try again."</string>
     <string name="error_login_failed">Login failed."</string>
     <string name="error_registration_failed">Registration failed."</string>
     <string name="error_relog_auth">Authentication failed. You need to re-login."</string>
+    <string name="error_send_money_amount_not_zero">"Amount must at least be more than zero."</string>
+    <string name="error_send_money_balance_not_available">"Balance is not available."</string>
+    <string name="error_send_money_insufficient_balance">"Insufficient balance."</string>
+    <string name="error_send_money_own_account">"You cannot send money to your own account."</string>
 
+    <string name="field_amount">Amount</string>
     <string name="field_password">Password</string>
     <string name="field_password_confirm">Confirm Password</string>
     <string name="field_username">Username (Email)</string>
+    <string name="field_recipient">Recipient (Email)</string>
 
     <string name="message_exit">Are you sure you want to exit.</string>
     <string name="message_logout">Do you want to logout?</string>
     <string name="message_registration_success">You have successfully registered using %1$s.</string>
+    <string name="message_send_money_success">You have successfully sent %1$s to %2$s!</string>
 
     <string name="response_no">No</string>
     <string name="response_yes">Yes</string>
 
     <string name="title_login">Welcome!</string>
-    <string name="title_main">Welcome back %1$s.</string>
+    <string name="title_main">Welcome back %1$s!</string>
     <string name="title_registration">We are excited to have you on board!</string>
+    <string name="title_send_money">Send Money</string>
 </resources>

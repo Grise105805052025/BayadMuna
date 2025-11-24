@@ -12,8 +12,8 @@ import klo0812.mlaserna.bayadmuna.R
 class MainViewModel(
     progress: Boolean,
     navigating: Boolean,
-    selectedMenu: Int = 0,
-    lastFragment: Int = 0,
+    selectedMenu: Int = -1,
+    lastFragment: Int = -1,
 ) : BaseActivityViewModel(progress, navigating) {
 
     companion object {

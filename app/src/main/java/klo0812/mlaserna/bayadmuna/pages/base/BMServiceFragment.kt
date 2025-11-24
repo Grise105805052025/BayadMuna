@@ -21,6 +21,10 @@ abstract class BMServiceFragment<
     @Inject
     lateinit var firebaseAuth: FirebaseAuth
 
+    override fun initiateViews() {
+        super.initiateViews()
+    }
+
     fun showSnackBarMessage(message: String?, duration: Int = Snackbar.LENGTH_LONG) {
         if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED) && message != null) {
             Snackbar.make(viewDataBinding.root, message, duration).show()

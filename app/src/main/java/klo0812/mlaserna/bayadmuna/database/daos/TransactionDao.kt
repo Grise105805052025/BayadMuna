@@ -13,7 +13,7 @@ interface TransactionDao {
     fun get(userId: String) : TransactionEntity
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(vararg users: TransactionEntity)
+    fun insertAll(vararg transactions: TransactionEntity)
 
     @Query("DELETE FROM TransactionEntity")
     fun deleteAll()

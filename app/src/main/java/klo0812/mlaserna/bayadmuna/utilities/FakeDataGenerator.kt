@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.random.Random
 
 /**
  * This is used to generated initial user mocked data.
@@ -26,11 +27,10 @@ class FakeDataGenerator @Inject constructor(
                 val userData = appDataBase.userDao().get(userId)
                 var wallet = appDataBase.walletDao().get(userId)
                 if (wallet == null) {
-                    // Start with PHP 1,000,000
                     wallet = WalletEntity(
                         id = userId,
                         userEntity = userData,
-                        balance = 1000000.0,
+                        balance = generateRandomBalance(),
                     )
                     appDataBase.walletDao().insertAll(wallet)
                 }
@@ -38,4 +38,16 @@ class FakeDataGenerator @Inject constructor(
         }
     }
 
+}
+
+fun generateRandomBalance(): Double {
+    return (10000..100000).random().toDouble()
+}
+
+fun generateRandomId(length: Int = 10): String {
+    val charPool : List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
+    return (1..length)
+        .map { Random.nextInt(0, charPool.size) }
+        .map(charPool::get)
+        .joinToString("")
 }

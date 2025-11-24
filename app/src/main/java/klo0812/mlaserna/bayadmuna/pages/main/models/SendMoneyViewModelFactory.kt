@@ -5,25 +5,27 @@ import androidx.lifecycle.ViewModelProvider
 import klo0812.mlaserna.bayadmuna.pages.main.database.MainRepository
 import klo0812.mlaserna.bayadmuna.pages.main.services.MainService
 
-open class WalletViewModelFactory(
+class SendMoneyViewModelFactory(
+    val target: String,
+    val amount: String,
     val username: String,
     val balance: Double,
-    val showBalance: Boolean,
     val service: MainService,
     val repository: MainRepository
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(WalletViewModel::class.java)) {
-            return WalletViewModel(
+        if (modelClass.isAssignableFrom(SendMoneyViewModel::class.java)) {
+            return SendMoneyViewModel(
+                target = target,
+                amount = amount,
                 username = username,
                 balance = balance,
-                showBalance = showBalance,
                 service = service,
                 repository = repository
             ) as T
         }
-        throw IllegalArgumentException("Unable to convert to WalletViewModel!")
+        throw IllegalArgumentException("Unable to convert to SendMoneyViewModel!")
     }
 
 }
