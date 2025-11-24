@@ -30,7 +30,7 @@ class RegistrationViewModel(
     val cpassword: MutableLiveData<String> = MutableLiveData(cpassword)
 
     fun allowRegister(): Boolean {
-        return validateUserName() && validateString(password.value) && validateString(cpassword.value) && (password.value == cpassword.value)
+        return validateUserName() && validateString(password.value) && validateString(cpassword.value)
     }
 
     fun register(listener: OnCompleteListener<AuthResult>): Boolean {
