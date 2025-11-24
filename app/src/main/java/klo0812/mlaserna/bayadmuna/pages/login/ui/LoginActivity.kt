@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
@@ -39,8 +38,6 @@ class LoginActivity : BaseBindingActivity<
         MAIN,
     }
 
-    private lateinit var mFragmentContainer: FrameLayout
-
     override fun onCreate(savedInstanceState: Bundle?) {
         ThemeChanger.randomizeTheme(this)
         super.onCreate(savedInstanceState)
@@ -60,9 +57,8 @@ class LoginActivity : BaseBindingActivity<
 
     override fun initiateViews() {
         super.initiateViews()
-        mFragmentContainer = findViewById(R.id.fragment_container)
         ViewCompat.setOnApplyWindowInsetsListener(
-            mFragmentContainer
+            viewDataBinding.fragmentContainer.parent as View
         ) { v: View?, insets: WindowInsetsCompat? ->
             val systemBars: Insets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
             v!!.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -93,10 +89,12 @@ class LoginActivity : BaseBindingActivity<
                 lifecycleScope.launch {
                     delay(200)
                     supportFragmentManager.beginTransaction()
-                        .replace(mFragmentContainer.id, nextFragment)
+                        .replace(viewDataBinding.fragmentContainer.id, nextFragment)
                         .addToBackStack(next.name)
                         .commit()
                 }
+            } else {
+                viewModel.navigating.value = false
             }
         } else {
             Log.w(TAG, "Navigation still in progress.")

@@ -1,6 +1,7 @@
 package klo0812.mlaserna.base.ui.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -24,6 +25,10 @@ abstract class BaseBindingActivity<
         A : BaseActivityViewModel,
         B : ViewModelProvider.Factory,
         C : ViewDataBinding> : AppCompatActivity() {
+
+    companion object {
+        val TAG: String? = BaseBindingActivity::class.simpleName
+    }
 
     protected lateinit var viewModel: A
     protected lateinit var viewDataBinding: C
@@ -81,7 +86,12 @@ abstract class BaseBindingActivity<
      * Initializes the observers (if any) for this activity.
      */
     open fun initiateObservers() {
-
+        viewModel.navigating.observe(this, {
+            Log.d(TAG, "Navigating: $it")
+        })
+        viewModel.progress.observe(this, {
+            Log.d(TAG, "In progress: $it")
+        })
     }
 
     /**

@@ -12,6 +12,7 @@ import klo0812.mlaserna.bayadmuna.pages.base.BMServiceFragment
 import klo0812.mlaserna.bayadmuna.pages.login.database.LoginRepository
 import klo0812.mlaserna.bayadmuna.pages.login.models.LoginViewModel
 import klo0812.mlaserna.bayadmuna.pages.login.models.LoginViewModelFactory
+import klo0812.mlaserna.bayadmuna.pages.login.navigation.LoginNavigation
 import klo0812.mlaserna.bayadmuna.pages.login.services.LoginAndRegistrationService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -26,9 +27,14 @@ class LoginFragment : BMServiceFragment<LoginViewModel, LoginViewModelFactory, F
         val TAG: String? = LoginFragment::class.simpleName
     }
 
-    @Inject lateinit var loginAndRegistrationService: LoginAndRegistrationService
+    @Inject
+    lateinit var loginAndRegistrationService: LoginAndRegistrationService
 
-    @Inject lateinit var loginRepository: LoginRepository
+    @Inject
+    lateinit var loginRepository: LoginRepository
+
+    @Inject
+    lateinit var loginNavigation: LoginNavigation
 
     lateinit var activityViewModel: BaseActivityViewModel
 
@@ -62,7 +68,7 @@ class LoginFragment : BMServiceFragment<LoginViewModel, LoginViewModelFactory, F
         activityViewModel.navigating.value = false
         setupLogin()
         viewDataBinding.mRegister.setOnClickListener {
-            mainNavigation.navigate(LoginActivity.Navigation.REGISTER)
+            loginNavigation.navigate(LoginActivity.Navigation.REGISTER)
         }
     }
 
@@ -105,7 +111,7 @@ class LoginFragment : BMServiceFragment<LoginViewModel, LoginViewModelFactory, F
                     email
                 )
             }
-            mainNavigation.navigate(LoginActivity.Navigation.MAIN)
+            loginNavigation.navigate(LoginActivity.Navigation.MAIN)
             activityViewModel.progress.value = false
         }
     }

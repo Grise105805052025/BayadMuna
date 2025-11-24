@@ -28,7 +28,7 @@ class LoginViewModel(
 
     fun login(listener: OnCompleteListener<AuthResult>): Boolean {
         if (validateUserName() && validatePassword()) {
-            service?.login(username.value!!, password.value!!, listener)
+            this@LoginViewModel.service?.login(username.value!!, password.value!!, listener)
             return true
         } else {
             return false

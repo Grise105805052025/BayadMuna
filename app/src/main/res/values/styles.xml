@@ -6,6 +6,7 @@
     <style name="Style.BayadMuna.Button"/>
 
     <style name="Style.BayadMuna.Button.TextOnly">
+        <item name="android:background">?attr/selectableItemBackground</item>
         <item name="android:backgroundTint">@color/transparent</item>
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
@@ -21,5 +22,18 @@
 
     <style name="Style.BayadMuna.Dscp">
         <item name="android:textSize">@dimen/text_dscp_text_size</item>
+    </style>
+
+    <style name="Style.BayadMuna.Wallet"/>
+
+    <style name="Style.BayadMuna.Wallet.Amount">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_wallet_amount_text_size</item>
+        <item name="android:gravity">right|end</item>
+    </style>
+
+    <style name="Style.BayadMuna.Wallet.Currency">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_wallet_currency_text_size</item>
     </style>
 </resources>

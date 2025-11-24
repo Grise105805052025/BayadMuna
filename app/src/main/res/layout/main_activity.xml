@@ -6,7 +6,7 @@
     <data>
         <variable
             name="activityViewModel"
-            type="klo0812.mlaserna.base.ui.models.BaseActivityViewModel"/>
+            type="klo0812.mlaserna.bayadmuna.pages.main.models.MainViewModel"/>
 
         <import type="android.view.View"/>
     </data>
@@ -16,14 +16,147 @@
         android:layout_height="match_parent"
         android:background="?attr/colorPrimary">
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <LinearLayout
+                android:id="@+id/mMenuContainer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/menu_size"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/menu_size"
+                    android:layout_weight="1">
+
+                    <View
+                        android:id="@+id/mMenu1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/white"
+                        android:onClick="@{() -> activityViewModel.selectMenu01()}"/>
+
+                    <ImageView
+                        android:id="@+id/mMenuI1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"
+                        android:padding="@dimen/menu_offset"
+                        android:src="@drawable/menu_wallet"
+                        android:onClick="@{() -> activityViewModel.selectMenu01()}"
+                        app:selectedMenu="@{activityViewModel.selectedMenu == 0}"/>
+
+                </RelativeLayout>
+
+                <Space
+                    android:layout_width="@dimen/spacing_elements_small"
+                    android:layout_height="match_parent"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/menu_size"
+                    android:layout_weight="1">
+
+                    <View
+                        android:id="@+id/mMenu2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/white"
+                        android:onClick="@{() -> activityViewModel.selectMenu02()}"/>
+
+                    <ImageView
+                        android:id="@+id/mMenuI2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"
+                        android:padding="@dimen/menu_offset"
+                        android:src="@drawable/menu_payment"
+                        android:onClick="@{() -> activityViewModel.selectMenu02()}"
+                        app:selectedMenu="@{activityViewModel.selectedMenu == 1}"/>
+
+                </RelativeLayout>
+
+                <Space
+                    android:layout_width="@dimen/spacing_elements_small"
+                    android:layout_height="match_parent"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/menu_size"
+                    android:layout_weight="1">
+
+                    <View
+                        android:id="@+id/mMenu3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/white"
+                        android:onClick="@{() -> activityViewModel.selectMenu03()}"/>
+
+                    <ImageView
+                        android:id="@+id/mMenuI3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"
+                        android:padding="@dimen/menu_offset"
+                        android:src="@drawable/menu_history"
+                        android:onClick="@{() -> activityViewModel.selectMenu03()}"
+                        app:selectedMenu="@{activityViewModel.selectedMenu == 2}"/>
+
+                </RelativeLayout>
+
+                <Space
+                    android:layout_width="@dimen/spacing_elements_small"
+                    android:layout_height="match_parent"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/menu_size"
+                    android:layout_weight="1">
+
+                    <View
+                        android:id="@+id/mMenu4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/white"
+                        android:onClick="@{() -> activityViewModel.selectMenu04()}"/>
+
+                    <ImageView
+                        android:id="@+id/mMenuI4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"
+                        android:padding="@dimen/menu_offset"
+                        android:src="@drawable/logout"
+                        android:onClick="@{() -> activityViewModel.selectMenu04()}"
+                        app:selectedMenu="@{activityViewModel.selectedMenu == 3}"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/mBlocker"

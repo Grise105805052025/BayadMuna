@@ -24,9 +24,11 @@ class RegistrationFragment : BMServiceFragment<RegistrationViewModel, Registrati
         val TAG: String? = RegistrationFragment::class.simpleName
     }
 
-    @Inject lateinit var loginAndRegistrationService: LoginAndRegistrationService
+    @Inject
+    lateinit var loginAndRegistrationService: LoginAndRegistrationService
 
-    @Inject lateinit var loginRepository: LoginRepository
+    @Inject
+    lateinit var loginRepository: LoginRepository
 
     lateinit var activityViewModel: BaseActivityViewModel
 

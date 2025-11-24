@@ -3,6 +3,9 @@
     <dimen name="field_dscp_text_size">12sp</dimen>
     <dimen name="field_edit_text_size">16sp</dimen>
 
+    <dimen name="menu_size">60dp</dimen>
+    <dimen name="menu_offset">8dp</dimen>
+
     <dimen name="spacing_elements_small">4dp</dimen>
     <dimen name="spacing_elements_medium">8dp</dimen>
     <dimen name="spacing_elements_large">16dp</dimen>
@@ -10,8 +13,10 @@
 
     <dimen name="progress_bar_blocker_size">100dp</dimen>
 
-    <dimen name="text_title_text_size">16sp</dimen>
     <dimen name="text_dscp_text_size">12sp</dimen>
+    <dimen name="text_title_text_size">16sp</dimen>
+    <dimen name="text_wallet_amount_text_size">36sp</dimen>
+    <dimen name="text_wallet_currency_text_size">24sp</dimen>
 
     <dimen name="ui_login_container_padding">24dp</dimen>
 </resources>

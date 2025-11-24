@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">BayadMuna</string>
 
+    <string name="action_amount_hide">Hide Amount</string>
+    <string name="action_amount_show">Show Amount</string>
+
     <string name="action_back">Back</string>
     <string name="action_login">Login</string>
     <string name="action_register">Register</string>
@@ -11,6 +14,7 @@
     <string name="error_generic">Something went wrong. Please try again."</string>
     <string name="error_login_failed">Login failed."</string>
     <string name="error_registration_failed">Registration failed."</string>
+    <string name="error_relog_auth">Authentication failed. You need to re-login."</string>
 
     <string name="field_password">Password</string>
     <string name="field_password_confirm">Confirm Password</string>
@@ -23,6 +27,7 @@
     <string name="response_no">No</string>
     <string name="response_yes">Yes</string>
 
-    <string name="title_login">Welcome back!</string>
+    <string name="title_login">Welcome!</string>
+    <string name="title_main">Welcome back %1$s.</string>
     <string name="title_registration">We are excited to have you on board!</string>
 </resources>

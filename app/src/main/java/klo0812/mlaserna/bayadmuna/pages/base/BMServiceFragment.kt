@@ -7,7 +7,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import klo0812.mlaserna.base.ui.fragment.BaseBindingFragment
 import klo0812.mlaserna.base.ui.models.BaseFragmentViewModel
-import klo0812.mlaserna.bayadmuna.pages.login.navigation.LoginNavigation
 import okhttp3.OkHttpClient
 import javax.inject.Inject
 
@@ -21,9 +20,6 @@ abstract class BMServiceFragment<
 
     @Inject
     lateinit var firebaseAuth: FirebaseAuth
-
-    @Inject
-    lateinit var mainNavigation: LoginNavigation
 
     fun showSnackBarMessage(message: String?, duration: Int = Snackbar.LENGTH_LONG) {
         if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED) && message != null) {

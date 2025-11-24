@@ -15,7 +15,8 @@
         <activity
             android:name=".pages.launcher.LauncherActivity"
             android:exported="true"
-            android:theme="@style/Theme.BayadMuna">
+            android:theme="@style/Theme.BayadMuna"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -25,12 +26,14 @@
         <activity
             android:name=".pages.login.ui.LoginActivity"
             android:exported="true"
-            android:theme="@style/Theme.BayadMuna"/>
+            android:theme="@style/Theme.BayadMuna"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".pages.main.ui.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.BayadMuna"/>
+            android:theme="@style/Theme.BayadMuna"
+            android:screenOrientation="portrait"/>
 
     </application>
 
