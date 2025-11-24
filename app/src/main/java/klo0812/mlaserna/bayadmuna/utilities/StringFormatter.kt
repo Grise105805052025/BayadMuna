@@ -1,5 +1,6 @@
 package klo0812.mlaserna.bayadmuna.utilities
 
+import android.icu.text.DateFormat
 import java.text.DecimalFormat
 
 fun formatMoney(amount: Double): String {
@@ -17,4 +18,9 @@ fun hideMoney(amount: Double): String {
         }
     }
     return String(chars).replace(",", "")
+}
+
+fun formatDate(date: Long): String {
+    val formatter: DateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM)
+    return formatter.format(date)
 }

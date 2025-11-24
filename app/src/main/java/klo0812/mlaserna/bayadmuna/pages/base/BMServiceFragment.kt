@@ -7,6 +7,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import klo0812.mlaserna.base.ui.fragment.BaseBindingFragment
 import klo0812.mlaserna.base.ui.models.BaseFragmentViewModel
+import klo0812.mlaserna.bayadmuna.R
 import okhttp3.OkHttpClient
 import javax.inject.Inject
 
@@ -25,9 +26,13 @@ abstract class BMServiceFragment<
         super.initiateViews()
     }
 
-    fun showSnackBarMessage(message: String?, duration: Int = Snackbar.LENGTH_LONG) {
+    fun showSnackBarMessage(message: String?, duration: Int = Snackbar.LENGTH_SHORT) {
         if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED) && message != null) {
-            Snackbar.make(viewDataBinding.root, message, duration).show()
+            val snackBar = Snackbar.make(viewDataBinding.root, message, duration)
+            snackBar.setAction(R.string.action_dismiss, {
+                snackBar.dismiss()
+            })
+            snackBar.show()
         } else {
             // do something
         }

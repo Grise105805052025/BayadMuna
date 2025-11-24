@@ -5,10 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import klo0812.mlaserna.base.ui.models.BaseFragmentViewModel
 import klo0812.mlaserna.bayadmuna.R
 import klo0812.mlaserna.bayadmuna.database.AppDataBase
+import klo0812.mlaserna.bayadmuna.database.entities.TransactionEntity
 import klo0812.mlaserna.bayadmuna.pages.main.database.MainRepository
 import klo0812.mlaserna.bayadmuna.pages.main.models.JSONPlaceHolderResponseModel.Companion.CODE_GENERIC_ERROR
 import klo0812.mlaserna.bayadmuna.pages.main.services.MainService
 import klo0812.mlaserna.bayadmuna.utilities.formatMoney
+import klo0812.mlaserna.bayadmuna.utilities.generateRandomId
 
 open class SendMoneyViewModel(
     target: String,
@@ -69,6 +71,15 @@ open class SendMoneyViewModel(
                 )
                 if (result.code == 200 || result.code == 201) {
                     (repository as MainRepository).deductBalance(userId, targetAmount)
+                    val userEntity = (repository as MainRepository).getUser(userId)
+                    val transaction = TransactionEntity(
+                        id = generateRandomId(),
+                        userEntity = userEntity,
+                        target = target.value ?: "",
+                        amount = targetAmount,
+                        date = System.currentTimeMillis()
+                    )
+                    (repository as MainRepository).addNewTransaction(transaction)
                 }
                 return result
             }

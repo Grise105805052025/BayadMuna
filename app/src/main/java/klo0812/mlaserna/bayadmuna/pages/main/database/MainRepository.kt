@@ -2,6 +2,8 @@ package klo0812.mlaserna.bayadmuna.pages.main.database
 
 import klo0812.mlaserna.base.database.BaseRepository
 import klo0812.mlaserna.bayadmuna.database.AppDataBase
+import klo0812.mlaserna.bayadmuna.database.entities.TransactionEntity
+import klo0812.mlaserna.bayadmuna.database.entities.UserEntity
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
@@ -10,6 +12,10 @@ class MainRepository @Inject constructor(
 
     companion object {
         val TAG: String? = MainRepository::class.simpleName
+    }
+
+    fun getUser(userID: String): UserEntity {
+        return database.userDao().get(userID)
     }
 
     fun getBalance(userID: String?): Double? {
@@ -30,5 +36,13 @@ class MainRepository @Inject constructor(
         }
     }
 
+    fun addNewTransaction(transaction: TransactionEntity) {
+        database.transactionDao().insert(transaction)
+    }
+
+    fun getTransactions(userID: String?): List<TransactionEntity> {
+        if (userID == null) return arrayListOf()
+        return database.transactionDao().getAll(userID)
+    }
 
 }

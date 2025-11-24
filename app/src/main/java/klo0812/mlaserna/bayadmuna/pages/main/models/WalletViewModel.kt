@@ -26,16 +26,16 @@ open class WalletViewModel(
     val showBalance: MutableLiveData<Boolean> = MutableLiveData(showBalance)
 
     fun toggleBalanceVisibility() {
-        checkMoneyVisibility()
         showBalance.value = showBalance.value != true
+        checkMoneyVisibility()
     }
 
     //TODO: Still has bugs when navigating back
     fun checkMoneyVisibility() {
         if (showBalance.value == true) {
-            balanceString.value = hideMoney(balance.value ?: 0.0)
-        } else {
             balanceString.value = formatMoney(balance.value ?: 0.0)
+        } else {
+            balanceString.value = hideMoney(balance.value ?: 0.0)
         }
     }
 

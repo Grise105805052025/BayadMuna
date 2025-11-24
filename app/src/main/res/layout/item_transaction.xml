@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="itemViewModel"
+            type="klo0812.mlaserna.bayadmuna.pages.main.models.TransactionItemViewModel"/>
+    </data>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white_rounded"
+        android:padding="@dimen/spacing_elements_large"
+        android:orientation="vertical">
+
+        <!-- Currency is set to static for now -->
+        <TextView
+            style="@style/Style.BayadMuna.Wallet.Currency"
+            android:id="@+id/mCurrency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_elements_small"
+            android:text="₱"/>
+
+        <TextView
+            style="@style/Style.BayadMuna.Wallet.Amount"
+            android:id="@+id/mAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/mCurrency"
+            android:text="@{itemViewModel.amountString}"/>
+
+        <TextView
+            android:id="@+id/mTarget"
+            style="@style/Style.BayadMuna.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mAmount"
+            android:layout_marginTop="@dimen/spacing_elements_small"
+            android:layout_alignParentRight="true"
+            android:clickable="false"
+            android:focusable="false"
+            android:text="@{itemViewModel.target}"/>
+
+        <TextView
+            android:id="@+id/mDate"
+            style="@style/Style.BayadMuna.Dscp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mTarget"
+            android:layout_marginTop="@dimen/spacing_elements_small"
+            android:layout_alignParentRight="true"
+            android:clickable="false"
+            android:focusable="false"
+            android:text="@{itemViewModel.dateString}"/>
+
+    </RelativeLayout>
+
+</layout>

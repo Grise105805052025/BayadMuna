@@ -53,6 +53,28 @@ class MainService @Inject constructor(
         }
     }
 
+    fun fetchTransactions(): JSONPlaceHolderResponseModel {
+        val request = buildRequest(URL_FAKE_POST + "/1") // just to simulate a call and nothing else
+        try {
+            val response: Response = httpClient.newCall(request).execute()
+            if (!response.isSuccessful) {
+                return JSONPlaceHolderResponseModel(
+                    code = response.code,
+                    message = response.message
+                )
+            }
+            val body = response.body.string()
+            val result = Gson().fromJson(body, JSONPlaceHolderResponseModel::class.java)
+            result.code = response.code
+            result.message = response.message
+            return result
+        } catch (e: IOException) {
+            return JSONPlaceHolderResponseModel(
+                exception = e
+            )
+        }
+    }
+
     private fun buildRequest(url: String, post: RequestBody? = null): Request {
         if (post != null) {
             return Request.Builder()

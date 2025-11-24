@@ -8,17 +8,19 @@ import klo0812.mlaserna.base.ui.models.BaseActivityViewModelFactory
 import klo0812.mlaserna.bayadmuna.R
 import klo0812.mlaserna.bayadmuna.databinding.FragmentBalanceBinding
 import klo0812.mlaserna.bayadmuna.pages.base.BMServiceFragment
-import klo0812.mlaserna.bayadmuna.pages.login.ui.LoginFragment.Companion.TAG
 import klo0812.mlaserna.bayadmuna.pages.main.database.MainRepository
 import klo0812.mlaserna.bayadmuna.pages.main.models.WalletViewModel
 import klo0812.mlaserna.bayadmuna.pages.main.models.WalletViewModelFactory
 import klo0812.mlaserna.bayadmuna.pages.main.navigation.MainNavigation
 import klo0812.mlaserna.bayadmuna.pages.main.services.MainService
-import klo0812.mlaserna.bayadmuna.utilities.formatMoney
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class BalanceFragment : BMServiceFragment<WalletViewModel, WalletViewModelFactory, FragmentBalanceBinding>() {
+
+    companion object {
+        val TAG: String? = BalanceFragment::class.simpleName
+    }
 
     @Inject
     lateinit var mainService: MainService
@@ -66,14 +68,14 @@ class BalanceFragment : BMServiceFragment<WalletViewModel, WalletViewModelFactor
     }
 
     private fun updateTitle() {
-        viewDataBinding.mTitle.setText(getString(R.string.title_main, viewModel.username.value))
+        viewDataBinding.mTitle.text = getString(R.string.title_main, viewModel.username.value)
     }
 
     override fun initiateObservers() {
         super.initiateObservers()
         viewModel.balance.observe(viewLifecycleOwner, {
             Log.d(TAG, "Balance changed to $it.")
-            viewModel.balanceString.value = formatMoney(it)
+            viewModel.checkMoneyVisibility()
         })
         viewModel.showBalance.observe(viewLifecycleOwner, {
             viewDataBinding.mShowHideAmount.setText(

@@ -12,8 +12,14 @@ interface TransactionDao {
     @Query("SELECT * FROM TransactionEntity WHERE userId = :userId")
     fun get(userId: String) : TransactionEntity
 
+    @Insert
+    fun insert(transaction : TransactionEntity)
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAll(vararg transactions: TransactionEntity)
+
+    @Query("SELECT * FROM TransactionEntity WHERE userId = :userId")
+    fun getAll(userId: String) : List<TransactionEntity>
 
     @Query("DELETE FROM TransactionEntity")
     fun deleteAll()

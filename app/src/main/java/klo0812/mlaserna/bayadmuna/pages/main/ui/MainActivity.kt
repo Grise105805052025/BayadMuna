@@ -23,6 +23,7 @@ import klo0812.mlaserna.bayadmuna.pages.main.models.WalletViewModelFactory
 import klo0812.mlaserna.bayadmuna.pages.main.navigation.MainNavigation
 import klo0812.mlaserna.bayadmuna.pages.main.pages.BalanceFragment
 import klo0812.mlaserna.bayadmuna.pages.main.pages.SendMoneyFragment
+import klo0812.mlaserna.bayadmuna.pages.main.pages.TransactionsFragment
 import klo0812.mlaserna.bayadmuna.pages.main.services.MainService
 import klo0812.mlaserna.bayadmuna.utilities.FakeDataGenerator
 import klo0812.mlaserna.bayadmuna.utilities.ThemeChanger
@@ -189,7 +190,7 @@ class MainActivity : BaseBindingActivity<
                     SendMoneyFragment()
                 }
                 Navigation.HISTORY -> {
-                    null
+                    TransactionsFragment()
                 }
             }
             if (nextFragment != null) {
