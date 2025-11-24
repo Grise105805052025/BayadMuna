@@ -77,8 +77,8 @@ class RegistrationFragment : BMServiceFragment<RegistrationViewModel, Registrati
                 lifecycleScope.launch {
                     val result = viewModel.register( { task ->
                         if (task.isSuccessful) {
-                            requireActivity().onBackPressed()
                             showSnackBarMessage(getString(R.string.message_registration_success, viewModel.username.value))
+                            requireActivity().onBackPressed()
                         } else {
                             showSnackBarMessage(task.exception?.message)
                         }
