@@ -1,6 +1,7 @@
 package klo0812.mlaserna.bayadmuna.pages.main.ui
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
@@ -15,6 +16,7 @@ import klo0812.mlaserna.base.ui.activity.BaseBindingActivity
 import klo0812.mlaserna.bayadmuna.R
 import klo0812.mlaserna.bayadmuna.database.AppDataBase
 import klo0812.mlaserna.bayadmuna.databinding.MainActivityBinding
+import klo0812.mlaserna.bayadmuna.pages.login.ui.LoginActivity
 import klo0812.mlaserna.bayadmuna.pages.main.database.MainRepository
 import klo0812.mlaserna.bayadmuna.pages.main.models.MainViewModel
 import klo0812.mlaserna.bayadmuna.pages.main.models.MainViewModelFactory
@@ -198,7 +200,6 @@ class MainActivity : BaseBindingActivity<
                     delay(200)
                     supportFragmentManager.beginTransaction()
                         .replace(viewDataBinding.fragmentContainer.id, nextFragment)
-                        .addToBackStack(next.name)
                         .commit()
                     viewModel.navigating.value = false
                 }
@@ -233,6 +234,7 @@ class MainActivity : BaseBindingActivity<
             lifecycleScope.launch {
                 firebaseAuth.signOut()
                 delay(200)
+                startActivity(Intent(this@MainActivity, LoginActivity::class.java))
                 finish()
                 viewModel.navigating.value = false
             }
